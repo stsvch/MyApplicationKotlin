@@ -18,6 +18,7 @@ class LoginActivity : Activity() {
     private lateinit var passwordEditText: EditText
     private lateinit var loginButton: Button
     private lateinit var progressBar: ProgressBar
+    private  lateinit var registerButton: Button
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -29,6 +30,11 @@ class LoginActivity : Activity() {
         passwordEditText = findViewById(R.id.passwordEditText)
         loginButton = findViewById(R.id.loginButton)
         progressBar = findViewById(R.id.progressBar)
+        registerButton= findViewById(R.id.registerButton)
+        registerButton.setOnClickListener {
+            startActivity(Intent(this, RegisterActivity::class.java))
+        }
+
 
         loginButton.setOnClickListener {
             val email = emailEditText.text.toString().trim()
