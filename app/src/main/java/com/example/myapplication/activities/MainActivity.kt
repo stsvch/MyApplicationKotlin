@@ -24,6 +24,35 @@ class MainActivity : Activity() {
         welcomeTextView = findViewById(R.id.welcomeTextView)
         logoutButton = findViewById(R.id.logoutButton)
 
+        val bottomNavigationView = findViewById<BottomNavigationView>(R.id.bottomNavigation)
+        bottomNavigationView.setOnItemSelectedListener { item ->
+            when (item.itemId) {
+                R.id.nav_home -> {
+                    val intent = Intent(this, HomeActivity::class.java)
+                    intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_NEW_TASK
+                    startActivity(intent)
+                    finish() // Закрываем текущую активити
+                    true
+                }
+                R.id.nav_search -> {
+                    val intent = Intent(this, SearchActivity::class.java)
+                    intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_NEW_TASK
+                    startActivity(intent)
+                    finish()
+                    true
+                }
+                R.id.nav_profile -> {
+                    val intent = Intent(this, ProfileActivity::class.java)
+                    intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_NEW_TASK
+                    startActivity(intent)
+                    finish()
+                    true
+                }
+                else -> false
+            }
+        }
+
+
         val currentUser = auth.currentUser
         if (currentUser != null) {
             displayWelcomeMessage(currentUser)
@@ -32,11 +61,11 @@ class MainActivity : Activity() {
             redirectToLogin()
         }
 
-        logoutButton.setOnClickListener {
-            auth.signOut()
-            Toast.makeText(this, "Logged out successfully", Toast.LENGTH_SHORT).show()
-            redirectToLogin()
-        }
+//        logoutButton.setOnClickListener {
+//            auth.signOut()
+//            Toast.makeText(this, "Logged out successfully", Toast.LENGTH_SHORT).show()
+//            redirectToLogin()
+//        }
     }
 
     private fun displayWelcomeMessage(user: FirebaseUser) {
